@@ -4,4 +4,22 @@
 </head>
 <body>
     <h1>My Todods</h1>
+  <ul></ul>
+    <script>
+    const electron = require('electron');
+    const {ipcRenderer} = electron;
+
+    ipcRenderer.on('todo:add', (event, todo)=>{
+    const li = document.createElement('li');
+    const text = document.createTextNode(todo);
+
+    li.appendChild(text);
+    document.querySelector('ul').appendChild(li);
+    });
+
+    //listening to the event todo:clear emitted from electron app
+    ipcRenderer.on('todo:clear',()=>{
+      document.querySelector('ul').innerHTML ="";
+    })
+    </script>
 </body>
